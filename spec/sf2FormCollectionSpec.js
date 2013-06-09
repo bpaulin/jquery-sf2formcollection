@@ -17,9 +17,16 @@ describe("sf2FormCollection", function() {
 
   it('should add a class to each item', function () {
     var container = $("#container");
+    var orig = container.children('*');
     container.sf2FormCollection();
-    container.children('*').each(function () {
+    orig.each(function () {
       expect($(this).hasClass('sf2fc-item')).toBeTruthy();
     });
+  });
+
+  it('should add an add element', function () {
+    var container = $("#container");
+    container.sf2FormCollection();
+    expect(container.children('#sf2fc-add').length).toEqual(1);
   });
 });
