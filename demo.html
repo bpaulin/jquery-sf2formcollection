@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Jasmine Spec Runner</title>
+
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <!-- include source files here... -->
+  <script type="text/javascript" src="src/sf2FormCollection.js"></script>
+</head>
+<body>
+  <div id="collection" data-prototype="<div>__INDEX__</div>">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+  </div>
+  <script>
+    $().ready(function(){
+        $('#collection').sf2FormCollection(
+            {
+            }
+        );
+    });</script>
+</body>
+</html>

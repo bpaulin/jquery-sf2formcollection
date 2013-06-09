@@ -1,41 +1,49 @@
 describe("sf2FormCollection", function() {
   beforeEach(function () {
-    $('<div id="container"></div>').appendTo('body');
+    var collection = $('<div id="collection"></div>');
+    collection.data('prototype','<div>__INDEX__</div>')
     for (var i=0; i < 5; i++) {
-      $('<div></div>').appendTo('#container');
+      $('<div>'+i+'</div>').appendTo(collection);
     };
+    collection.appendTo('body');
   });
 
   afterEach(function () {
-    $("#container").remove();
+    $("#collection").remove();
   });
 
   it('should be testable', function () {
-    var container = $("#container");
+    var container = $("#collection");
     expect(container.sf2FormCollection).toBeDefined();
   });
 
-  it('should add a class to each original item', function () {
-    var container = $("#container");
-    var orig = container.children('*');
+  it('should move each original item in div.sf2fc-items', function () {
+    var container = $("#collection");
+    var orig = container.html();
     container.sf2FormCollection();
-    orig.each(function () {
-      expect($(this).hasClass('sf2fc-item')).toBeTruthy();
-    });
+    expect(container.find('.sf2fc-items').html()).toEqual(orig);
   });
 
   it('should add an add element with default content', function () {
-    var container = $("#container");
+    var container = $("#collection");
     container.sf2FormCollection();
     expect(container.children('.sf2fc-add').html()).toEqual('<a href="#">Add an item</a>');
   });
 
   it('should add an add element with personalized content', function () {
-    var container = $("#container");
+    var container = $("#collection");
     var settings = {
       'addItem': '<a href="#">personalized link</a>'
     };
     container.sf2FormCollection(settings);
     expect(container.children('.sf2fc-add').html()).toEqual(settings['addItem']);
+  });
+
+  it('click on add element should append prototype', function () {
+    var container = $("#collection");
+    container.sf2FormCollection();
+    orig = container.find('.sf2fc-items').contents().length;
+    $('.sf2fc-add').click();
+    expect(container.find('.sf2fc-items').contents().length).toEqual(orig+1);
   });
 });
