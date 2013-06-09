@@ -15,7 +15,7 @@ describe("sf2FormCollection", function() {
     expect(container.sf2FormCollection).toBeDefined();
   });
 
-  it('should add a class to each item', function () {
+  it('should add a class to each original item', function () {
     var container = $("#container");
     var orig = container.children('*');
     container.sf2FormCollection();
@@ -24,9 +24,18 @@ describe("sf2FormCollection", function() {
     });
   });
 
-  it('should add an add element', function () {
+  it('should add an add element with default content', function () {
     var container = $("#container");
     container.sf2FormCollection();
-    expect(container.children('#sf2fc-add').length).toEqual(1);
+    expect(container.children('.sf2fc-add').html()).toEqual('<a href="#">Add an item</a>');
+  });
+
+  it('should add an add element with personalized content', function () {
+    var container = $("#container");
+    var settings = {
+      'addItem': '<a href="#">personalized link</a>'
+    };
+    container.sf2FormCollection(settings);
+    expect(container.children('.sf2fc-add').html()).toEqual(settings['addItem']);
   });
 });
