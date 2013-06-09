@@ -1,9 +1,9 @@
 describe("sf2FormCollection", function() {
   beforeEach(function () {
     var collection = $('<div id="collection"></div>');
-    collection.data('prototype','<div>__INDEX__</div>')
+    collection.data('prototype','<div data-test="__NAME__">__NAME__</div>')
     for (var i=0; i < 5; i++) {
-      $('<div>'+i+'</div>').appendTo(collection);
+      $('<div>'+i+'</div>').data('test','__NAME__').appendTo(collection);
     };
     collection.appendTo('body');
   });
@@ -46,4 +46,22 @@ describe("sf2FormCollection", function() {
     $('.sf2fc-add').click();
     expect(container.find('.sf2fc-items').contents().length).toEqual(orig+1);
   });
+
+  it('should replace __NAME__ with new index in added elements', function () {
+    var container = $("#collection");
+    container.sf2FormCollection();
+    orig = container.find('.sf2fc-items').contents().length;
+    $('.sf2fc-add').click();
+    expect(container.find('.sf2fc-items').children('*').last().data('test')).
+      toEqual(orig);
+  });
+
+  // it('should add an remove element original item', function () {
+  //   var container = $("#collection");
+  //   var settings = {
+  //     'removeItem': '<a href="#">Remove this item</a>'
+  //   };
+  //   container.sf2FormCollection(settings);
+  //   //TODO
+  // });
 });
