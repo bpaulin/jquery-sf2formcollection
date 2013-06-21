@@ -76,7 +76,7 @@ describe("sf2FormCollection", function() {
       toEqual(orig);
   });
 
-  it('should add an remove element to each original item', function () {
+  it('should add an remove element to each item', function () {
     var container = $("#collection");
     var settings = {
       'removeItem': '<a href="#">Remove this item</a>'
@@ -98,7 +98,6 @@ describe("sf2FormCollection", function() {
       'removeItem': '<a href="#">Remove this item</a>'
     };
     container.sf2FormCollection(settings);
-    // $('.sf2fc-add').click();
 
     container.find('.sf2fc-items .sf2fc-item').each(function (){
       $(this).children('.sf2fc-remove').click();

@@ -2,14 +2,16 @@
     $.fn.sf2FormCollection=function(options)
     {
 
-    	var container = $(this);
+        var container = $(this);
 
-    	/** Load params */
+        /** Load params */
         var defauts=
         {
             'addItem': '<a href="#">Add an item</a>',
             'removeItem': '',
-            'tokenIndex': '__NAME__'
+            'tokenIndex': '__NAME__',
+            'sortable': false,
+            'sortItem': '<a href="#">Sort</a>'
         };
         params = $.extend(defauts, options);
 
@@ -21,7 +23,7 @@
             item.appendTo(items);
         })
         items.appendTo(container);
-		container.data('index', items.contents().length);
+        container.data('index', items.contents().length);
 
         /** RemoveElement */
         if (params['removeItem'] != '') {
@@ -35,19 +37,29 @@
             })
         };
 
-    	/** AddElement */
-    	var containerAddElement = $("<div class='sf2fc-add'></div>");
-		var addElement = $(params['addItem']);
-    	addElement.appendTo(containerAddElement);
-    	containerAddElement.appendTo($(this));
+        /** SortElement */
+        if (params['sortable']) {
+            container.find('.sf2fc-items').sortable();
+            container.find('.sf2fc-items').children('*').each(function () {
+                link = $(params['sortItem'])
+                link.addClass('sf2fc-sort');
+                $(this).prepend(link);
+            })
+        };
+
+        /** AddElement */
+        var containerAddElement = $("<div class='sf2fc-add'></div>");
+        var addElement = $(params['addItem']);
+        addElement.appendTo(containerAddElement);
+        containerAddElement.appendTo($(this));
 
         /** Click on AddElement */
-    	containerAddElement.on('click', function(e) {
+        containerAddElement.on('click', function(e) {
             e.preventDefault();
             var prototype = container.data('prototype');
             var index = container.data('index');
-			
-			prototype = prototype.replace(params['tokenIndex'], index);
+            var re = new RegExp(params['tokenIndex'], 'g');
+            prototype = prototype.replace(re, index);
             item = $('<div class="sf2fc-item"></div>');
             item.append(prototype)
 
@@ -57,13 +69,13 @@
                 $(this).parent().remove();
             });
             item.append(link);
-            
+
             container.find('.sf2fc-items').append(item);
 
-			container.data('index', index+1);
+            container.data('index', index+1);
         });
 
-    	/** return */
-    	return $(this);
+        /** return */
+        return $(this);
     };
 })(jQuery);
