@@ -1,6 +1,7 @@
 (function($) {
     $.fn.sf2FormCollection=function(options)
     {
+
     	var container = $(this);
 
     	/** Load params */
@@ -49,6 +50,14 @@
 			prototype = prototype.replace(params['tokenIndex'], index);
             item = $('<div class="sf2fc-item"></div>');
             item.append(prototype)
+
+            link = $(params['removeItem'])
+            link.addClass('sf2fc-remove');
+            link.click(function() {
+                $(this).parent().remove();
+            });
+            item.append(link);
+            
             container.find('.sf2fc-items').append(item);
 
 			container.data('index', index+1);

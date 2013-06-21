@@ -82,6 +82,7 @@ describe("sf2FormCollection", function() {
       'removeItem': '<a href="#">Remove this item</a>'
     };
     container.sf2FormCollection(settings);
+    $('.sf2fc-add').click();
 
     container.find('.sf2fc-items').children('*').each(function (){
       link = $(settings['removeItem']);
