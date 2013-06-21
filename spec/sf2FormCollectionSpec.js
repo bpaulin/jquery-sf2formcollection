@@ -52,9 +52,23 @@ describe("sf2FormCollection", function() {
     expect(container.find('.sf2fc-items').contents().length).toEqual(orig+1);
   });
 
-  it('should replace __NAME__ with new index in added elements', function () {
+  it('should replace default token with new index in added elements', function () {
     var container = $("#collection");
     container.sf2FormCollection();
+    orig = container.find('.sf2fc-items').contents().length;
+    $('.sf2fc-add').click();
+
+    expect(container.find('.sf2fc-items').children('*').last().find('div').data('test')).
+      toEqual(orig);
+  });
+
+  it('should replace personnalized token with new index in added elements', function () {
+    var container = $("#collection");
+    container.data('prototype','<div data-test="__token__">__token__</div>')
+    var settings = {
+      'tokenIndex': '__token__'
+    };
+    container.sf2FormCollection(settings);
     orig = container.find('.sf2fc-items').contents().length;
     $('.sf2fc-add').click();
 

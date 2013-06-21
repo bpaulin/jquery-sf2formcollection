@@ -8,6 +8,7 @@
         {
             'addItem': '<a href="#">Add an item</a>',
             'removeItem': '',
+            'tokenIndex': '__NAME__'
         };
         params = $.extend(defauts, options);
 
@@ -45,7 +46,7 @@
             var prototype = container.data('prototype');
             var index = container.data('index');
 			
-			prototype = prototype.replace(/__NAME__/g, index);
+			prototype = prototype.replace(params['tokenIndex'], index);
             item = $('<div class="sf2fc-item"></div>');
             item.append(prototype)
             container.find('.sf2fc-items').append(item);
