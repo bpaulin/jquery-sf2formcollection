@@ -56,12 +56,15 @@ describe("sf2FormCollection", function() {
       toEqual(orig);
   });
 
-  // it('should add an remove element original item', function () {
-  //   var container = $("#collection");
-  //   var settings = {
-  //     'removeItem': '<a href="#">Remove this item</a>'
-  //   };
-  //   container.sf2FormCollection(settings);
-  //   //TODO
-  // });
+  it('should add an remove element to each original item', function () {
+    var container = $("#collection");
+    var settings = {
+      'removeItem': '<a href="#">Remove this item</a>'
+    };
+    container.sf2FormCollection(settings);
+    container.find('.sf2fc-items').children('*').each(function (){
+      expect(
+        $(this).html()).toContain(settings['removeItem']);
+    })
+  });
 });

@@ -7,7 +7,7 @@
         var defauts=
         {
             'addItem': '<a href="#">Add an item</a>',
-            'removeItem': '<a href="#">Remove this item</a>',
+            'removeItem': '',
         };
         params = $.extend(defauts, options);
 
@@ -17,13 +17,20 @@
         items.appendTo($(this));
 		$(this).data('index', items.contents().length);
 
+        /** RemoveElement */
+        if (params['removeItem'] != '') {
+            container.find('.sf2fc-items').children('*').each(function () {
+                $(this).append($(params['removeItem']));
+            })
+        };
+
     	/** AddElement */
     	var containerAddElement = $("<div class='sf2fc-add'></div>");
 		var addElement = $(params['addItem']);
-
     	addElement.appendTo(containerAddElement);
     	containerAddElement.appendTo($(this));
 
+        /** Click on AddElement */
     	containerAddElement.on('click', function(e) {
             e.preventDefault();
             var prototype = container.data('prototype');

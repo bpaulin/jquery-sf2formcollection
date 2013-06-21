@@ -2,7 +2,7 @@
   "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <title>Jasmine Spec Runner</title>
+  <title>sf2FormCollection.js</title>
 
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <!-- include source files here... -->
@@ -18,9 +18,11 @@
   </div>
   <script>
     $().ready(function(){
-        $('#collection').sf2FormCollection(
-            {
-            }
+        $('#collection').sf2FormCollection(        
+          {
+            'addItem': '<a href="#">Add an item</a>',
+            'removeItem': '<a href="#">Remove this item</a>',
+          }
         );
     });</script>
 </body>
