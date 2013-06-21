@@ -13,14 +13,23 @@
 
         /** Move Original items */
         items = $('<div class="sf2fc-items"></div>');
-        $(this).children('*').detach().appendTo(items);
-        items.appendTo($(this));
-		$(this).data('index', items.contents().length);
+        container.children('*').each( function() {
+            item = $('<div class="sf2fc-item"></div>');
+            $(this).detach().appendTo(item);
+            item.appendTo(items);
+        })
+        items.appendTo(container);
+		container.data('index', items.contents().length);
 
         /** RemoveElement */
         if (params['removeItem'] != '') {
             container.find('.sf2fc-items').children('*').each(function () {
-                $(this).append($(params['removeItem']));
+                link = $(params['removeItem'])
+                link.addClass('sf2fc-remove');
+                $(this).append(link);
+                link.click(function() {
+                    $(this).parent().remove();
+                });
             })
         };
 
@@ -37,7 +46,9 @@
             var index = container.data('index');
 			
 			prototype = prototype.replace(/__NAME__/g, index);
-            container.find('.sf2fc-items').append(prototype);
+            item = $('<div class="sf2fc-item"></div>');
+            item.append(prototype)
+            container.find('.sf2fc-items').append(item);
 
 			container.data('index', index+1);
         });

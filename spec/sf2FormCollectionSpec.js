@@ -14,19 +14,22 @@ describe("sf2FormCollection", function() {
 
   it('should be testable', function () {
     var container = $("#collection");
+
     expect(container.sf2FormCollection).toBeDefined();
   });
 
-  it('should move each original item in div.sf2fc-items', function () {
+  xit('should move each original item in div.sf2fc-items', function () {
     var container = $("#collection");
     var orig = container.html();
     container.sf2FormCollection();
+
     expect(container.find('.sf2fc-items').html()).toEqual(orig);
   });
 
   it('should add an add element with default content', function () {
     var container = $("#collection");
     container.sf2FormCollection();
+
     expect(container.children('.sf2fc-add').html()).toEqual('<a href="#">Add an item</a>');
   });
 
@@ -36,14 +39,16 @@ describe("sf2FormCollection", function() {
       'addItem': '<a href="#">personalized link</a>'
     };
     container.sf2FormCollection(settings);
+
     expect(container.children('.sf2fc-add').html()).toEqual(settings['addItem']);
   });
 
-  it('click on add element should append prototype', function () {
+  it('should append prototype when click on add element', function () {
     var container = $("#collection");
     container.sf2FormCollection();
     orig = container.find('.sf2fc-items').contents().length;
     $('.sf2fc-add').click();
+
     expect(container.find('.sf2fc-items').contents().length).toEqual(orig+1);
   });
 
@@ -52,7 +57,8 @@ describe("sf2FormCollection", function() {
     container.sf2FormCollection();
     orig = container.find('.sf2fc-items').contents().length;
     $('.sf2fc-add').click();
-    expect(container.find('.sf2fc-items').children('*').last().data('test')).
+
+    expect(container.find('.sf2fc-items').children('*').last().find('div').data('test')).
       toEqual(orig);
   });
 
@@ -62,9 +68,26 @@ describe("sf2FormCollection", function() {
       'removeItem': '<a href="#">Remove this item</a>'
     };
     container.sf2FormCollection(settings);
+
     container.find('.sf2fc-items').children('*').each(function (){
+      link = $(settings['removeItem']);
+      link.addClass('sf2fc-remove');
       expect(
-        $(this).html()).toContain(settings['removeItem']);
+        $(this).html()).toContain(link.html());
+    })
+  });
+
+  it('should remove item when click on remove element', function () {
+    var container = $("#collection");
+    var settings = {
+      'removeItem': '<a href="#">Remove this item</a>'
+    };
+    container.sf2FormCollection(settings);
+    // $('.sf2fc-add').click();
+
+    container.find('.sf2fc-items .sf2fc-item').each(function (){
+      $(this).children('.sf2fc-remove').click();
+      expect(container.html()).not.toContain($(this).html());
     })
   });
 });
