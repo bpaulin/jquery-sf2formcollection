@@ -30,7 +30,7 @@ describe("sf2FormCollection", function() {
     var container = $("#collection");
     container.sf2FormCollection();
 
-    expect(container.children('.sf2fc-add').html()).toEqual('<a href="#">Add an item</a>');
+    expect(container.children('.sf2fc-add').html()).toEqual('<a href="#" id="sf2fc-add">Add an item</a>');
   });
 
   it('should add an add element with personalized content', function () {
@@ -40,7 +40,7 @@ describe("sf2FormCollection", function() {
     };
     container.sf2FormCollection(settings);
 
-    expect(container.children('.sf2fc-add').html()).toEqual(settings['addItem']);
+    expect(container.children('.sf2fc-add').html()).toEqual('<a href="#" id="sf2fc-add">personalized link</a>');
   });
 
   it('should append prototype when click on add element', function () {
