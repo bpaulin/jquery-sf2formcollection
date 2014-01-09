@@ -47,6 +47,7 @@ module.exports = function(grunt) {
 			}
 		},
 
+		// Jasmine definitions
 	    jasmine : {
 			src : 'src/**/*.js',
 			options : {
@@ -60,6 +61,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
+	grunt.loadNpmTasks('grunt-contrib-qunit');
 
 	grunt.registerTask("default", ["jshint", "jasmine", "concat", "uglify"]);
 	grunt.registerTask("travis", ["jshint", "jasmine"]);
