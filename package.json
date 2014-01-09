@@ -18,6 +18,7 @@
 		"grunt-contrib-coffee": "~0.7.0"
 	},
 	"scripts": {
-		"test": "grunt travis --verbose"
+		"test": "grunt travis --verbose",
+		"build": "grunt default --verbose"
 	}
 }
