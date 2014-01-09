@@ -1,0 +1,27 @@
+{
+	"name": "sf2FormCollection",
+	"title": "sf2FormCollection",
+	"description": "sf2FormCollection",
+	"keywords": [
+		"jquery",
+		"plugins"
+	],
+	"version": "0.2.0",
+	"author": {
+		"name": "Bruno Paulin",
+		"email": "brunopaulin@bpaulin.net",
+		"url": "https://bpaulin.net"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://zenorocha.mit-license.org/"
+		}
+	],
+	"homepage": "https://github.com/bpaulin/jquery-sf2formcollection",
+	"docs": "https://github.com/jquery-boilerplate/boilerplate#readme",
+	"download": "https://github.com/bpaulin/jquery-sf2formcollection/archive/master.zip",
+	"dependencies": {
+		"jquery": ">=1.4"
+	}
+}

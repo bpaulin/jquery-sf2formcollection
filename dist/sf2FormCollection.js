@@ -1,3 +1,11 @@
+/*
+ *  sf2FormCollection - v0.2.0
+ *  sf2FormCollection
+ *  https://github.com/bpaulin/jquery-sf2formcollection
+ *
+ *  Made by Bruno Paulin
+ *  Under MIT License
+ */
 (function($) {
     $.fn.sf2FormCollection=function(options)
     {
