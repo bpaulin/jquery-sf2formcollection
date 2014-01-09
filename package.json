@@ -1,24 +1,25 @@
 {
-	"name": "sf2FormCollection",
-	"title": "sf2FormCollection",
-	"description": "sf2FormCollection",
-	"author": "Bruno Paulin",
-	"repository": {
-		"type":"git",
-		"url":"https://github.com/bpaulin/jquery-sf2formcollection.git"
-	},
-	"homepage": "https://github.com/bpaulin/jquery-sf2formcollection",
-	"version": "0.2.0",
-	"devDependencies": {
-		"grunt": "*",
-		"grunt-cli": "*",
-		"grunt-contrib-jshint": "*",
-		"grunt-contrib-concat": "*",
-		"grunt-contrib-uglify": "*",
-		"grunt-contrib-jasmine": "*"
-	},
-	"scripts": {
-		"test": "grunt travis --verbose",
-		"build": "grunt default --verbose"
-	}
+  "name": "sf2FormCollection",
+  "title": "sf2FormCollection",
+  "description": "sf2FormCollection",
+  "author": "Bruno Paulin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bpaulin/jquery-sf2formcollection.git"
+  },
+  "homepage": "https://github.com/bpaulin/jquery-sf2formcollection",
+  "version": "0.2.0",
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-cli": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-jasmine": "*",
+    "grunt-contrib-watch": "*"
+  },
+  "scripts": {
+    "test": "grunt travis --verbose",
+    "build": "grunt default --verbose"
+  }
 }
