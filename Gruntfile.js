@@ -47,23 +47,20 @@ module.exports = function(grunt) {
 			}
 		},
 
-		// CoffeeScript compilation
-		coffee: {
-			compile: {
-				files: {
-					"dist/sf2FormCollection.js": "src/sf2FormCollection.coffee"
-				}
+	    jasmine : {
+			src : 'src/**/*.js',
+			options : {
+				specs : 'spec/**/*.js',
+				vendor : 'dist/jquery-1.10.2.min.js'
 			}
-		}
-
+	    }
 	});
 
 	grunt.loadNpmTasks("grunt-contrib-concat");
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
-	grunt.loadNpmTasks("grunt-contrib-coffee");
+	grunt.loadNpmTasks('grunt-contrib-jasmine');
 
-	grunt.registerTask("default", ["jshint", "concat", "uglify"]);
-	grunt.registerTask("travis", ["jshint"]);
-
+	grunt.registerTask("default", ["jshint", "jasmine", "concat", "uglify"]);
+	grunt.registerTask("travis", ["jshint", "jasmine"]);
 };
