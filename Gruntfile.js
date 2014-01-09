@@ -51,7 +51,7 @@ module.exports = function(grunt) {
 		coffee: {
 			compile: {
 				files: {
-					"dist/sf2FormCollection.js": "src/jquery.sf2FormCollection.coffee"
+					"dist/sf2FormCollection.js": "src/sf2FormCollection.coffee"
 				}
 			}
 		}
