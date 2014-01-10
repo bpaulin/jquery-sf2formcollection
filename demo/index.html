@@ -8,28 +8,73 @@
       border:1px dotted black;
     }
   </style>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-  <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
   <!-- include source files here... -->
   <script type="text/javascript" src="../src/sf2FormCollection.js"></script>
 </head>
 <body>
-  <div id="collection" data-prototype="<div>__NAME__</div>">
-    <div>0</div>
-    <div>1</div>
-    <div>2</div>
-    <div>3</div>
-    <div>4</div>
+
+<h1>sf2FormCollection.js</h1>
+
+	<h2>Adding items</h2>
+  <div id="fc_add_default" data-prototype="<span>__NAME__</span>">
+    <span>0</span>
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
   </div>
   <script>
     $().ready(function(){
-        $('#collection').sf2FormCollection(        
-          {
-            'removeItem': '<a href="#">Remove this item</a>',
-            'sortable': true,
-          }
-        );
-    });</script>
+      $('#fc_add_default').sf2FormCollection(
+        {
+        }
+      );
+    });
+   </script>
+
+	<h2>Adding items</h2>
+  <div id="fc_add_param" data-prototype="<span>__TEST__</span>">
+    <span>0</span>
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
+  </div>
+  <script>
+    $().ready(function(){
+      $('#fc_add_param').sf2FormCollection(
+        {
+          // If addItem is a matching selector, object will be used as link
+          // If not, the link will be created containing "addItem" value
+          "addItem": "add <strong> one </strong>",
+          // If addItem is not a matching selector
+          // false(default): link will be added AFTER items
+          // true: link will be added BEFORE items
+          "prependAddItem": true,
+          // "tokenIndex" value will be replaced in prototype by an unique number
+          "tokenIndex": "__TEST__",
+          // false(default): can't remove item
+          // string: the remove link will be created containing "removeItem" value
+          "removeItem": "remove <strong> this </strong>",
+          // false(default): link will be added AFTER item
+          // true: link will be added BEFORE item
+          "prependRemoveItem": true,
+          // false(default): link will be added AFTER item
+          // string: the remove link will be created containing "sortItem" value
+          "sortItem": "sort <strong> this </strong>",
+          // false(default): link will be added AFTER item
+          // true: link will be added BEFORE item
+          "prependSortItem": false
+        }
+      );
+    });
+   </script>
 </body>
+
 </html>
