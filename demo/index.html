@@ -8,28 +8,37 @@
       border:1px dotted black;
     }
   </style>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <!-- include source files here... -->
   <script type="text/javascript" src="../src/sf2FormCollection.js"></script>
 </head>
 <body>
-  <div id="collection" data-prototype="<div>__NAME__</div>">
-    <div>0</div>
-    <div>1</div>
-    <div>2</div>
-    <div>3</div>
-    <div>4</div>
+
+<h1>sf2FormCollection.js</h1>
+
+	<h2>Adding items</h2>
+  <div id="fc_add_" data-prototype="<span>__NAME__</span>">
+    <span>0</span>
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
   </div>
   <script>
     $().ready(function(){
-        $('#collection').sf2FormCollection(
-          {
-            'removeItem': '<a href="#">Remove this item</a>',
-            'sortable': true,
-          }
-        );
-    });</script>
+      $('#fc_add_').sf2FormCollection(
+        {
+          'removeItem': '<a href="#">Remove this item</a>',
+          'sortable': true,
+        }
+      );
+    });
+   </script>
 </body>
+
 </html>
