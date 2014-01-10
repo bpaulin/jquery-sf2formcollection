@@ -1,5 +1,5 @@
 /*
- *  sf2FormCollection - v0.2.0
+ *  sf2FormCollection - v0.3.0
  *  sf2FormCollection
  *  https://github.com/bpaulin/jquery-sf2formcollection
  *
