@@ -58,19 +58,59 @@
             // and this.settings
             // you can add more functions like the one below and
             // call them like so: this.yourOtherFunction(this.element, this.settings).
+
+            function processItem() {
+                if (that.settings.removeItem) {
+                    containerRemoveElement = $("<div>").addClass("sf2fc-remove");
+                    removeElement = $.parseHTML(that.settings.removeItem);
+                    $.each( removeElement, function(i, el ) {
+                        containerRemoveElement.append(el);
+                    });
+
+
+                    if (that.settings.prependRemoveItem) {
+                        containerRemoveElement.prependTo(this);
+                    } else {
+                        containerRemoveElement.appendTo(this);
+                    }
+
+                    containerRemoveElement.click(function() {
+                        $(this).parent().remove();
+                    });
+                }
+
+                if (that.settings.sortItem) {
+                    containerSortElement = $("<div>").addClass("sf2fc-sort");
+                    sortElement = $.parseHTML(that.settings.sortItem);
+                    $.each( sortElement, function(i, el ) {
+                        containerSortElement.append(el);
+                    });
+
+
+                    if (that.settings.prependSortItem) {
+                        containerSortElement.prependTo(this);
+                    } else {
+                        containerSortElement.appendTo(this);
+                    }
+                }
+            }
+
             var that = this,
                 containerAddElement,
                 addElement,
-                /** Move Original items */
-                items = $("<div class=\"sf2fc-items\"></div>");
+                items = $("<div>").addClass("sf2fc-items");
 
+            /** Move Original items */
             $(this.element).children("*").each( function() {
-                item = $("<div class=\"sf2fc-item\"></div>");
+                var item = $("<div>").addClass("sf2fc-item");
                 $(this).detach().appendTo(item);
                 item.appendTo(items);
             });
             items.appendTo($(this.element));
             $(this.element).data("index", items.contents().length);
+
+            /** process items */
+            $(this.element).find(".sf2fc-items").children("*").each(processItem);
 
             /** AddElement */
             try {
@@ -80,7 +120,7 @@
                 }
             }
             catch (e) {
-                containerAddElement = $("<div class=\"sf2fc-add\"></div>");
+                containerAddElement = $("<div>").addClass("sf2fc-add");
                 addElement = $.parseHTML(this.settings.addItem);
                 $.each( addElement, function(i, el ) {
                     containerAddElement.append(el);
@@ -99,69 +139,14 @@
                     index = $(that.element).data("index"),
                     re = new RegExp(that.settings.tokenIndex, "g");
                 prototype = prototype.replace(re, index);
-                item = $("<div class=\"sf2fc-item\"></div>");
+                item = $("<div>").addClass("sf2fc-item");
                 item.append(prototype);
-
-                if (that.settings.removeItem) {
-                    containerRemoveElement = $("<div class=\"sf2fc-remove\"></div>");
-                    removeElement = $.parseHTML(that.settings.removeItem);
-                    $.each( removeElement, function(i, el ) {
-                        containerRemoveElement.append(el);
-                    });
-
-
-                    if (that.settings.prependRemoveItem) {
-                        containerRemoveElement.prependTo(item);
-                    } else {
-                        containerRemoveElement.appendTo(item);
-                    }
-
-                    containerRemoveElement.click(function() {
-                        $(this).parent().remove();
-                    });
-                }
-
-                if (that.settings.sortItem) {
-                    containerSortElement = $("<div class=\"sf2fc-sort\"></div>");
-                    sortElement = $.parseHTML(that.settings.sortItem);
-                    $.each( sortElement, function(i, el ) {
-                        containerSortElement.append(el);
-                    });
-
-
-                    if (that.settings.prependSortItem) {
-                        containerSortElement.prependTo(item);
-                    } else {
-                        containerSortElement.appendTo(item);
-                    }
-                }
+                item.each(processItem);
 
                 $(that.element).find(".sf2fc-items").append(item);
 
                 $(that.element).data("index", index+1);
             });
-
-            /** RemoveElement */
-            if (this.settings.removeItem) {
-                $(this.element).find(".sf2fc-items").children("*").each(function () {
-
-                    containerRemoveElement = $("<div class=\"sf2fc-remove\"></div>");
-                    removeElement = $.parseHTML(that.settings.removeItem);
-                    $.each( removeElement, function(i, el ) {
-                        containerRemoveElement.append(el);
-                    });
-
-                    if (that.settings.prependRemoveItem) {
-                        containerRemoveElement.prependTo($(this));
-                    } else {
-                        containerRemoveElement.appendTo($(this));
-                    }
-
-                    containerRemoveElement.click(function() {
-                        $(this).parent().remove();
-                    });
-                });
-            }
 
             /** SortElement */
             if (this.settings.sortItem) {
@@ -169,20 +154,7 @@
                     cursor: "move",
                     handle: ".sf2fc-sort"
                 });
-                $(this.element).find(".sf2fc-items").children("*").each(function () {
 
-                    containerSortElement = $("<div class=\"sf2fc-sort\"></div>");
-                    sortElement = $.parseHTML(that.settings.sortItem);
-                    $.each( sortElement, function(i, el ) {
-                        containerSortElement.append(el);
-                    });
-
-                    if (that.settings.prependSortItem) {
-                        containerSortElement.prependTo($(this));
-                    } else {
-                        containerSortElement.appendTo($(this));
-                    }
-                });
             }
 
             /** return */
