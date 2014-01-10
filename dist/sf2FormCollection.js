@@ -40,7 +40,6 @@
             this._defaults = defaults;
             this._name = pluginName;
             this.init();
-            this.sf2FormCollection();
         }
 
         Plugin.prototype = {
@@ -51,11 +50,6 @@
                 // and this.settings
                 // you can add more functions like the one below and
                 // call them like so: this.yourOtherFunction(this.element, this.settings).
-                console.log("sf2FormCollection");
-            },
-
-            sf2FormCollection: function () {
-                // some logic
                 var that = this,
                     containerAddElement = $("<div class=\"sf2fc-add\"></div>"),
                     addElement = $(this.settings.addItem),

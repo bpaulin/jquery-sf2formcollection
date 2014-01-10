@@ -16,7 +16,8 @@
     "grunt-contrib-concat": "*",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-jasmine": "*",
-    "grunt-contrib-watch": "*"
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-qunit": "*"
   },
   "scripts": {
     "test": "grunt travis --verbose",
