@@ -17,7 +17,8 @@
     "grunt-contrib-uglify": "*",
     "grunt-contrib-jasmine": "*",
     "grunt-contrib-watch": "*",
-    "grunt-contrib-qunit": "*"
+    "grunt-contrib-qunit": "*",
+    "qunitjs": "*"
   },
   "scripts": {
     "test": "grunt travis --verbose",
