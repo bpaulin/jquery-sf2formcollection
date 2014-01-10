@@ -32,8 +32,8 @@
             // false(default): link will be added AFTER item
             // string: the remove link will be created containing "sortItem" value
             "sortItem": false,
-            // false(default): link will be added AFTER item
-            // true: link will be added BEFORE item
+            // false: link will be added AFTER item
+            // true(default): link will be added BEFORE item
             "prependSortItem": true
         };
 
