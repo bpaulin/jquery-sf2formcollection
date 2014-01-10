@@ -106,19 +106,30 @@ describe("sf2FormCollection", function() {
       toEqual(orig);
   });
 
-  it('should add an remove element to each item', function () {
+  it('should add a remove element at the end of each item', function () {
     var container = $("#collection");
     var settings = {
-      'removeItem': '<a href="#">Remove this item</a>'
+      'removeItem': 'test <a href="#">Remove this item</a>'
     };
     container.sf2FormCollection(settings);
     $('.sf2fc-add').click();
 
     container.find('.sf2fc-items').children('*').each(function (){
-      var link = $(settings['removeItem']);
-      link.addClass('sf2fc-remove');
-      expect(
-        $(this).html()).toContain(link.html());
+      expect($(this).children().last().hasClass('sf2fc-remove')).toBeTruthy();
+    });
+  });
+
+  it('should add a remove element at the begin of each item', function () {
+    var container = $("#collection");
+    var settings = {
+      'removeItem': 'test <a href="#">Remove this item</a>',
+      'prependRemoveItem': true
+    };
+    container.sf2FormCollection(settings);
+    $('.sf2fc-add').click();
+
+    container.find('.sf2fc-items').children('*').each(function (){
+      expect($(this).children().first().hasClass('sf2fc-remove')).toBeTruthy();
     });
   });
 

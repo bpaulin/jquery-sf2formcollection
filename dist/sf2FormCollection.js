@@ -22,9 +22,21 @@
     // Create the defaults once
     var pluginName = "sf2FormCollection",
         defaults = {
+            // If addItem is a matching selector, object will be used as link
+            // If not, the link will be created containing "addItem" value
             "addItem": "Add an item",
-            "removeItem": "",
+            // If addItem is not a matching selector
+            // false(default): link will be added AFTER items
+            // true: link will be added BEFORE items
+            "prependAddItem": false,
+            // "tokenIndex" value will be replaced in prototype by an unique number
             "tokenIndex": "__NAME__",
+            // false(default): can't remove item
+            // string: the remove link will be created containing "removeItem" value
+            "removeItem": false,
+            // false(default): link will be added AFTER item
+            // true: link will be added BEFORE item
+            "prependRemoveItem": false,
             "sortable": false,
             "sortItem": "<a href=\"#\">Sort</a>"
         };
@@ -51,8 +63,8 @@
             // you can add more functions like the one below and
             // call them like so: this.yourOtherFunction(this.element, this.settings).
             var that = this,
-                containerAddElement = $("<div class=\"sf2fc-add\"></div>"),
-                addElement = $.parseHTML(this.settings.addItem),
+                containerAddElement,
+                addElement,
                 /** Move Original items */
                 items = $("<div class=\"sf2fc-items\"></div>");
 
@@ -65,10 +77,24 @@
             $(this.element).data("index", items.contents().length);
 
             /** AddElement */
-            $.each( addElement, function(i, el ) {
-                containerAddElement.append(el);
-            });
-            containerAddElement.appendTo($(this.element));
+            try {
+                containerAddElement = $("body").find(this.settings.addItem);
+                if (containerAddElement.length === 0) {
+                    throw "addItem not found";
+                }
+            }
+            catch (e) {
+                containerAddElement = $("<div class=\"sf2fc-add\"></div>");
+                addElement = $.parseHTML(this.settings.addItem);
+                $.each( addElement, function(i, el ) {
+                    containerAddElement.append(el);
+                });
+                if (this.settings.prependAddItem) {
+                    containerAddElement.prependTo($(this.element));
+                } else {
+                    containerAddElement.appendTo($(this.element));
+                }
+            }
 
             /** Click on AddElement */
             containerAddElement.on("click", function(e) {
@@ -80,12 +106,24 @@
                 item = $("<div class=\"sf2fc-item\"></div>");
                 item.append(prototype);
 
-                link = $(that.settings.removeItem);
-                link.addClass("sf2fc-remove");
-                link.click(function() {
-                    $(this).parent().remove();
-                });
-                item.append(link);
+                if (that.settings.removeItem) {
+                    containerRemoveElement = $("<div class=\"sf2fc-remove\"></div>");
+                    removeElement = $.parseHTML(that.settings.removeItem);
+                    $.each( removeElement, function(i, el ) {
+                        containerRemoveElement.append(el);
+                    });
+
+
+                    if (that.settings.prependRemoveItem) {
+                        containerRemoveElement.prependTo(item);
+                    } else {
+                        containerRemoveElement.appendTo(item);
+                    }
+
+                    containerRemoveElement.click(function() {
+                        $(this).parent().remove();
+                    });
+                }
 
                 /** SortElement */
                 if (that.settings.sortable) {
@@ -100,12 +138,24 @@
             });
 
             /** RemoveElement */
-            if (this.settings.removeItem !== "") {
+            if (this.settings.removeItem) {
                 $(this.element).find(".sf2fc-items").children("*").each(function () {
-                    link = $(that.settings.removeItem);
-                    link.addClass("sf2fc-remove");
-                    $(this).append(link);
-                    link.click(function() {
+
+                    containerRemoveElement = $("<div class=\"sf2fc-remove\"></div>");
+                    removeElement = $.parseHTML(that.settings.removeItem);
+                    $.each( removeElement, function(i, el ) {
+                        containerRemoveElement.append(el);
+                    });
+
+
+
+                    if (that.settings.prependRemoveItem) {
+                        containerRemoveElement.prependTo($(this));
+                    } else {
+                        containerRemoveElement.appendTo($(this));
+                    }
+
+                    containerRemoveElement.click(function() {
                         $(this).parent().remove();
                     });
                 });

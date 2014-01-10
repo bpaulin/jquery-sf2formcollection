@@ -15,7 +15,7 @@
     var pluginName = "sf2FormCollection",
         defaults = {
             // If addItem is a matching selector, object will be used as link
-            // If not, the link will be created and "addItem" value within
+            // If not, the link will be created containing "addItem" value
             "addItem": "Add an item",
             // If addItem is not a matching selector
             // false(default): link will be added AFTER items
@@ -23,7 +23,12 @@
             "prependAddItem": false,
             // "tokenIndex" value will be replaced in prototype by an unique number
             "tokenIndex": "__NAME__",
-            "removeItem": "",
+            // false(default): can't remove item
+            // string: the remove link will be created containing "removeItem" value
+            "removeItem": false,
+            // false(default): link will be added AFTER item
+            // true: link will be added BEFORE item
+            "prependRemoveItem": false,
             "sortable": false,
             "sortItem": "<a href=\"#\">Sort</a>"
         };
@@ -93,12 +98,24 @@
                 item = $("<div class=\"sf2fc-item\"></div>");
                 item.append(prototype);
 
-                link = $(that.settings.removeItem);
-                link.addClass("sf2fc-remove");
-                link.click(function() {
-                    $(this).parent().remove();
-                });
-                item.append(link);
+                if (that.settings.removeItem) {
+                    containerRemoveElement = $("<div class=\"sf2fc-remove\"></div>");
+                    removeElement = $.parseHTML(that.settings.removeItem);
+                    $.each( removeElement, function(i, el ) {
+                        containerRemoveElement.append(el);
+                    });
+
+
+                    if (that.settings.prependRemoveItem) {
+                        containerRemoveElement.prependTo(item);
+                    } else {
+                        containerRemoveElement.appendTo(item);
+                    }
+
+                    containerRemoveElement.click(function() {
+                        $(this).parent().remove();
+                    });
+                }
 
                 /** SortElement */
                 if (that.settings.sortable) {
@@ -113,12 +130,24 @@
             });
 
             /** RemoveElement */
-            if (this.settings.removeItem !== "") {
+            if (this.settings.removeItem) {
                 $(this.element).find(".sf2fc-items").children("*").each(function () {
-                    link = $(that.settings.removeItem);
-                    link.addClass("sf2fc-remove");
-                    $(this).append(link);
-                    link.click(function() {
+
+                    containerRemoveElement = $("<div class=\"sf2fc-remove\"></div>");
+                    removeElement = $.parseHTML(that.settings.removeItem);
+                    $.each( removeElement, function(i, el ) {
+                        containerRemoveElement.append(el);
+                    });
+
+
+
+                    if (that.settings.prependRemoveItem) {
+                        containerRemoveElement.prependTo($(this));
+                    } else {
+                        containerRemoveElement.appendTo($(this));
+                    }
+
+                    containerRemoveElement.click(function() {
                         $(this).parent().remove();
                     });
                 });
