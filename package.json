@@ -8,7 +8,7 @@
     "url": "https://github.com/bpaulin/jquery-sf2formcollection.git"
   },
   "homepage": "https://github.com/bpaulin/jquery-sf2formcollection",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "devDependencies": {
     "grunt": "*",
     "grunt-cli": "*",
