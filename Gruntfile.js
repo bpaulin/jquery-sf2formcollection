@@ -44,7 +44,14 @@ module.exports = function(grunt) {
             src : "src/**/*.js",
             options : {
                 specs : "spec/**/*.js",
-                vendor : "dist/jquery-1.10.2.min.js"
+                vendor : [
+                    "node_modules/jquery/dist/jquery.min.js",
+                    "dist/jquery-ui.min.js",
+                    "node_modules/jquery-ui/ui/jquery.ui.core.js",
+                    "node_modules/jquery-ui/ui/jquery.ui.widget.js",
+                    "node_modules/jquery-ui/ui/jquery.ui.mouse.js",
+                    "node_modules/jquery-ui/ui/jquery.ui.sortable.js"
+                ]
             }
         },
 
@@ -71,6 +78,12 @@ module.exports = function(grunt) {
                 },
                 src: ["test/**/*.js"]
             },
+            jasmine: {
+                options: {
+                    jshintrc: "spec/.jshintrc"
+                },
+                src: ["spec/**/*.js"]
+            },
         },
 
         watch: {
@@ -80,11 +93,15 @@ module.exports = function(grunt) {
             },
             src: {
                 files: "<%= jshint.src.src %>",
-                tasks: ["jshint:src", "qunit"]
+                tasks: ["jshint:src", "qunit","jasmine"]
             },
             test: {
                 files: "<%= jshint.test.src %>",
                 tasks: ["jshint:test", "qunit"]
+            },
+            jasmine: {
+                files: "<%= jshint.jasmine.src %>",
+                tasks: ["jshint:jasmine", "jasmine"]
             },
         },
     });
