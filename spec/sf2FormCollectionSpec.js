@@ -1,10 +1,10 @@
 describe("sf2FormCollection", function() {
   beforeEach(function () {
     var collection = $('<div id="collection"></div>');
-    collection.data('prototype','<div data-test="__NAME__">__NAME__</div>')
+    collection.data('prototype','<div data-test="__NAME__">__NAME__</div>');
     for (var i=0; i < 5; i++) {
       $('<div>'+i+'</div>').data('test','__NAME__').appendTo(collection);
-    };
+    }
     collection.appendTo('body');
   });
 
@@ -44,7 +44,8 @@ describe("sf2FormCollection", function() {
   });
 
   it('should append prototype when click on add element', function () {
-    var container = $("#collection");
+    var container = $("#collection"),
+        orig;
     container.sf2FormCollection();
     orig = container.find('.sf2fc-items').contents().length;
     $('.sf2fc-add').click();
@@ -53,7 +54,8 @@ describe("sf2FormCollection", function() {
   });
 
   it('should replace default token with new index in added elements', function () {
-    var container = $("#collection");
+    var container = $("#collection"),
+        orig;
     container.sf2FormCollection();
     orig = container.find('.sf2fc-items').contents().length;
     $('.sf2fc-add').click();
@@ -63,8 +65,9 @@ describe("sf2FormCollection", function() {
   });
 
   it('should replace personnalized token with new index in added elements', function () {
-    var container = $("#collection");
-    container.data('prototype','<div data-test="__token__">__token__</div>')
+    var container = $("#collection"),
+        orig;
+    container.data('prototype','<div data-test="__token__">__token__</div>');
     var settings = {
       'tokenIndex': '__token__'
     };
@@ -85,11 +88,11 @@ describe("sf2FormCollection", function() {
     $('.sf2fc-add').click();
 
     container.find('.sf2fc-items').children('*').each(function (){
-      link = $(settings['removeItem']);
+      var link = $(settings['removeItem']);
       link.addClass('sf2fc-remove');
       expect(
         $(this).html()).toContain(link.html());
-    })
+    });
   });
 
   it('should remove item when click on remove element', function () {
@@ -102,6 +105,6 @@ describe("sf2FormCollection", function() {
     container.find('.sf2fc-items .sf2fc-item').each(function (){
       $(this).children('.sf2fc-remove').click();
       expect(container.html()).not.toContain($(this).html());
-    })
+    });
   });
 });

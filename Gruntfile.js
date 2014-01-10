@@ -71,6 +71,12 @@ module.exports = function(grunt) {
                 },
                 src: ["test/**/*.js"]
             },
+            jasmine: {
+                options: {
+                    jshintrc: "spec/.jshintrc"
+                },
+                src: ["spec/**/*.js"]
+            },
         },
 
         watch: {
@@ -80,11 +86,15 @@ module.exports = function(grunt) {
             },
             src: {
                 files: "<%= jshint.src.src %>",
-                tasks: ["jshint:src", "qunit"]
+                tasks: ["jshint:src", "qunit","jasmine"]
             },
             test: {
                 files: "<%= jshint.test.src %>",
                 tasks: ["jshint:test", "qunit"]
+            },
+            jasmine: {
+                files: "<%= jshint.jasmine.src %>",
+                tasks: ["jshint:jasmine", "jasmine"]
             },
         },
     });
