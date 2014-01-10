@@ -37,8 +37,12 @@
             // false(default): link will be added AFTER item
             // true: link will be added BEFORE item
             "prependRemoveItem": false,
-            "sortable": false,
-            "sortItem": "<a href=\"#\">Sort</a>"
+            // false(default): link will be added AFTER item
+            // string: the remove link will be created containing "sortItem" value
+            "sortItem": false,
+            // false(default): link will be added AFTER item
+            // true: link will be added BEFORE item
+            "prependSortItem": true
         };
 
     // The actual plugin constructor
@@ -125,11 +129,19 @@
                     });
                 }
 
-                /** SortElement */
-                if (that.settings.sortable) {
-                    link = $(that.settings.sortItem);
-                    link.addClass("sf2fc-sort");
-                    item.prepend(link);
+                if (that.settings.sortItem) {
+                    containerSortElement = $("<div class=\"sf2fc-sort\"></div>");
+                    sortElement = $.parseHTML(that.settings.sortItem);
+                    $.each( sortElement, function(i, el ) {
+                        containerSortElement.append(el);
+                    });
+
+
+                    if (that.settings.prependSortItem) {
+                        containerSortElement.prependTo(item);
+                    } else {
+                        containerSortElement.appendTo(item);
+                    }
                 }
 
                 $(that.element).find(".sf2fc-items").append(item);
@@ -147,8 +159,6 @@
                         containerRemoveElement.append(el);
                     });
 
-
-
                     if (that.settings.prependRemoveItem) {
                         containerRemoveElement.prependTo($(this));
                     } else {
@@ -162,15 +172,24 @@
             }
 
             /** SortElement */
-            if (this.settings.sortable) {
+            if (this.settings.sortItem) {
                 $(this.element).find(".sf2fc-items").sortable({
                     cursor: "move",
                     handle: ".sf2fc-sort"
                 });
                 $(this.element).find(".sf2fc-items").children("*").each(function () {
-                    link = $(that.settings.sortItem);
-                    link.addClass("sf2fc-sort");
-                    $(this).prepend(link);
+
+                    containerSortElement = $("<div class=\"sf2fc-sort\"></div>");
+                    sortElement = $.parseHTML(that.settings.sortItem);
+                    $.each( sortElement, function(i, el ) {
+                        containerSortElement.append(el);
+                    });
+
+                    if (that.settings.prependSortItem) {
+                        containerSortElement.prependTo($(this));
+                    } else {
+                        containerSortElement.appendTo($(this));
+                    }
                 });
             }
 
