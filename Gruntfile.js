@@ -44,7 +44,14 @@ module.exports = function(grunt) {
             src : "src/**/*.js",
             options : {
                 specs : "spec/**/*.js",
-                vendor : ["dist/jquery-1.10.2.min.js","dist/jquery-ui.min.js"]
+                vendor : [
+                    "node_modules/jquery/dist/jquery.min.js",
+                    "dist/jquery-ui.min.js",
+                    "node_modules/jquery-ui/ui/jquery.ui.core.js",
+                    "node_modules/jquery-ui/ui/jquery.ui.widget.js",
+                    "node_modules/jquery-ui/ui/jquery.ui.mouse.js",
+                    "node_modules/jquery-ui/ui/jquery.ui.sortable.js"
+                ]
             }
         },
 

@@ -18,7 +18,9 @@
     "grunt-contrib-jasmine": "*",
     "grunt-contrib-watch": "*",
     "grunt-contrib-qunit": "*",
-    "qunitjs": "*"
+    "qunitjs": "*",
+    "jquery":"*",
+    "jquery-ui": "jquery/jquery-ui"
   },
   "scripts": {
     "test": "grunt travis --verbose",
