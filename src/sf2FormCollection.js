@@ -14,9 +14,16 @@
     // Create the defaults once
     var pluginName = "sf2FormCollection",
         defaults = {
-            "addItem": "<a href=\"#\">Add an item</a>",
-            "removeItem": "",
+            // If addItem is a matching selector, object will be used as link
+            // If not, the link will be created and "addItem" value within
+            "addItem": "Add an item",
+            // If addItem is not a matching selector
+            // false(default): link will be added AFTER items
+            // true: link will be added BEFORE items
+            "prependAddItem": false,
+            // "tokenIndex" value will be replaced in prototype by an unique number
             "tokenIndex": "__NAME__",
+            "removeItem": "",
             "sortable": false,
             "sortItem": "<a href=\"#\">Sort</a>"
         };
@@ -43,8 +50,8 @@
             // you can add more functions like the one below and
             // call them like so: this.yourOtherFunction(this.element, this.settings).
             var that = this,
-                containerAddElement = $("<div class=\"sf2fc-add\"></div>"),
-                addElement = $(this.settings.addItem),
+                containerAddElement,
+                addElement,
                 /** Move Original items */
                 items = $("<div class=\"sf2fc-items\"></div>");
 
@@ -57,9 +64,24 @@
             $(this.element).data("index", items.contents().length);
 
             /** AddElement */
-            addElement.attr("id","sf2fc-add");
-            addElement.appendTo(containerAddElement);
-            containerAddElement.appendTo($(this.element));
+            try {
+                containerAddElement = $("body").find(this.settings.addItem);
+                if (containerAddElement.length === 0) {
+                    throw "addItem not found";
+                }
+            }
+            catch (e) {
+                containerAddElement = $("<div class=\"sf2fc-add\"></div>");
+                addElement = $.parseHTML(this.settings.addItem);
+                $.each( addElement, function(i, el ) {
+                    containerAddElement.append(el);
+                });
+                if (this.settings.prependAddItem) {
+                    containerAddElement.prependTo($(this.element));
+                } else {
+                    containerAddElement.appendTo($(this.element));
+                }
+            }
 
             /** Click on AddElement */
             containerAddElement.on("click", function(e) {

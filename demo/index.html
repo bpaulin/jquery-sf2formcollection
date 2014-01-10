@@ -22,7 +22,7 @@
 <h1>sf2FormCollection.js</h1>
 
 	<h2>Adding items</h2>
-  <div id="fc_add_" data-prototype="<span>__NAME__</span>">
+  <div id="fc_add_default" data-prototype="<span>__NAME__</span>">
     <span>0</span>
     <span>1</span>
     <span>2</span>
@@ -31,10 +31,63 @@
   </div>
   <script>
     $().ready(function(){
-      $('#fc_add_').sf2FormCollection(
+      $('#fc_add_default').sf2FormCollection(
         {
-          'removeItem': '<a href="#">Remove this item</a>',
-          'sortable': true,
+        }
+      );
+    });
+   </script>
+
+	<h2>Adding personnalized items</h2>
+  <div id="fc_add_param" data-prototype="<span>__NAME__</span>">
+    <span>0</span>
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
+  </div>
+  <script>
+    $().ready(function(){
+      $('#fc_add_param').sf2FormCollection(
+        {
+          'addItem': '<a href="#">Add</a> an <strong>item</strong>'
+        }
+      );
+    });
+   </script>
+
+	<h2>Adding before items</h2>
+  <div id="fc_add_prepend" data-prototype="<span>__NAME__</span>">
+    <span>0</span>
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
+  </div>
+  <script>
+    $().ready(function(){
+      $('#fc_add_prepend').sf2FormCollection(
+        {
+          'prependAddItem': true
+        }
+      );
+    });
+   </script>
+
+	<h2>Use existant item to add</h2>
+	<div id="link_add">existant link</div>
+  <div id="fc_add_existant" data-prototype="<span>__NAME__</span>">
+    <span>0</span>
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
+  </div>
+  <script>
+    $().ready(function(){
+      $('#fc_add_existant').sf2FormCollection(
+        {
+          'addItem': "#link_add"
         }
       );
     });

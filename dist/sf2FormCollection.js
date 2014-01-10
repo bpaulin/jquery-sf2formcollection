@@ -22,7 +22,7 @@
     // Create the defaults once
     var pluginName = "sf2FormCollection",
         defaults = {
-            "addItem": "<a href=\"#\">Add an item</a>",
+            "addItem": "Add an item",
             "removeItem": "",
             "tokenIndex": "__NAME__",
             "sortable": false,
@@ -52,7 +52,7 @@
             // call them like so: this.yourOtherFunction(this.element, this.settings).
             var that = this,
                 containerAddElement = $("<div class=\"sf2fc-add\"></div>"),
-                addElement = $(this.settings.addItem),
+                addElement = $.parseHTML(this.settings.addItem),
                 /** Move Original items */
                 items = $("<div class=\"sf2fc-items\"></div>");
 
@@ -65,8 +65,9 @@
             $(this.element).data("index", items.contents().length);
 
             /** AddElement */
-            addElement.attr("id","sf2fc-add");
-            addElement.appendTo(containerAddElement);
+            $.each( addElement, function(i, el ) {
+                containerAddElement.append(el);
+            });
             containerAddElement.appendTo($(this.element));
 
             /** Click on AddElement */

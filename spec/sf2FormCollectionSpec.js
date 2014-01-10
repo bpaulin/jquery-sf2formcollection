@@ -1,10 +1,12 @@
 describe("sf2FormCollection", function() {
   beforeEach(function () {
-    var collection = $('<div id="collection"></div>');
+    var collection = $('<div id="collection"></div>'),
+        link = $('<div id="link_add"></div>');
     collection.data('prototype','<div data-test="__NAME__">__NAME__</div>');
     for (var i=0; i < 5; i++) {
       $('<div>'+i+'</div>').data('test','__NAME__').appendTo(collection);
     }
+    link.appendTo('body');
     collection.appendTo('body');
   });
 
@@ -30,17 +32,42 @@ describe("sf2FormCollection", function() {
     var container = $("#collection");
     container.sf2FormCollection();
 
-    expect(container.children('.sf2fc-add').html()).toEqual('<a href="#" id="sf2fc-add">Add an item</a>');
+    expect(container.children('.sf2fc-add').html()).toEqual('Add an item');
+    expect(container.children().last().hasClass('sf2fc-add')).toBeTruthy();
   });
 
   it('should add an add element with personalized content', function () {
     var container = $("#collection");
     var settings = {
-      'addItem': '<a href="#">personalized link</a>'
+      'addItem': 'test <a href="#">personalized link</a>'
     };
     container.sf2FormCollection(settings);
 
-    expect(container.children('.sf2fc-add').html()).toEqual('<a href="#" id="sf2fc-add">personalized link</a>');
+    expect(container.children('.sf2fc-add').html()).toEqual('test <a href="#">personalized link</a>');
+  });
+
+  it('should add an add element before collection', function () {
+    var container = $("#collection");
+    var settings = {
+      'prependAddItem': true
+    };
+    container.sf2FormCollection(settings);
+
+    expect(container.children().first().hasClass('sf2fc-add')).toBeTruthy();
+    expect(container.children('.sf2fc-add').html()).toEqual('Add an item');
+  });
+
+  it('should use an existant object as add link', function () {
+    var container = $("#collection"),
+        orig;
+    var settings = {
+      'addItem': '#link_add'
+    };
+    container.sf2FormCollection(settings);
+    orig = container.find('.sf2fc-items').contents().length;
+    $('#link_add').click();
+
+    expect(container.find('.sf2fc-items').contents().length).toEqual(orig+1);
   });
 
   it('should append prototype when click on add element', function () {
