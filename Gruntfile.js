@@ -51,6 +51,9 @@ module.exports = function(grunt) {
                     "node_modules/jquery-ui/ui/jquery.ui.widget.js",
                     "node_modules/jquery-ui/ui/jquery.ui.mouse.js",
                     "node_modules/jquery-ui/ui/jquery.ui.sortable.js"
+                ],
+                helpers : [
+                    "node_modules/jasmine-jquery/lib/jasmine-jquery.js"
                 ]
             }
         },

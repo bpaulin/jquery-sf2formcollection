@@ -1,13 +1,7 @@
+jasmine.getFixtures().fixturesPath = 'spec/fixtures';
 describe("sf2FormCollection", function() {
   beforeEach(function () {
-    var collection = $('<div id="collection"></div>'),
-        link = $('<div id="link_add"></div>');
-    collection.data('prototype','<div data-test="__NAME__"><span class="index"></span>__NAME__</div>');
-    for (var i=0; i < 5; i++) {
-      $('<div>'+i+'</div>').data('test','__NAME__').appendTo(collection);
-    }
-    link.appendTo('body');
-    collection.appendTo('body');
+    loadFixtures('exemple1.html');
   });
 
   afterEach(function () {

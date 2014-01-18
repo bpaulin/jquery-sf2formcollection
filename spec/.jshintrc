@@ -18,6 +18,8 @@
     "beforeEach",
     "afterEach",
     "expect",
-    "describe"
+    "describe",
+    "loadFixtures",
+    "jasmine"
   ]
 }
