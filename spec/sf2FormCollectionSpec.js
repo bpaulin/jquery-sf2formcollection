@@ -2,7 +2,7 @@ describe("sf2FormCollection", function() {
   beforeEach(function () {
     var collection = $('<div id="collection"></div>'),
         link = $('<div id="link_add"></div>');
-    collection.data('prototype','<div data-test="__NAME__">__NAME__</div>');
+    collection.data('prototype','<div data-test="__NAME__"><span class="index"></span>__NAME__</div>');
     for (var i=0; i < 5; i++) {
       $('<div>'+i+'</div>').data('test','__NAME__').appendTo(collection);
     }
@@ -20,12 +20,14 @@ describe("sf2FormCollection", function() {
     expect(container.sf2FormCollection).toBeDefined();
   });
 
-  xit('should move each original item in div.sf2fc-items', function () {
+  it('should move each original item in a div.sf2fc-item, all in a div.sf2fc-items', function () {
     var container = $("#collection");
-    var orig = container.html();
     container.sf2FormCollection();
 
-    expect(container.find('.sf2fc-items').html()).toEqual(orig);
+    expect(container.find('.sf2fc-items>*').length).toEqual(5);
+    container.find('.sf2fc-items>*').each(function () {
+      expect($(this).is('div.sf2fc-item')).toBeTruthy();
+    });
   });
 
   it('should add an add element with default content', function () {
@@ -82,19 +84,24 @@ describe("sf2FormCollection", function() {
 
   it('should replace default token with new index in added elements', function () {
     var container = $("#collection"),
-        orig;
+        orig,
+        last;
     container.sf2FormCollection();
     orig = container.find('.sf2fc-items').contents().length;
     $('.sf2fc-add').click();
 
-    expect(container.find('.sf2fc-items').children('*').last().find('div').data('test')).
-      toEqual(orig);
+    last = container.find('.sf2fc-items>*').last();
+
+    expect(
+      $('<div>').append(last.clone()).html()
+    ).toEqual("<div class=\"sf2fc-item\"><div data-test=\"5\"><span class=\"index\"></span>5</div></div>");
   });
 
   it('should replace personnalized token with new index in added elements', function () {
     var container = $("#collection"),
-        orig;
-    container.data('prototype','<div data-test="__token__">__token__</div>');
+        orig,
+        last;
+    container.data('prototype','<div data-other-test="__token__"><span>__token__</span></div>');
     var settings = {
       'tokenIndex': '__token__'
     };
@@ -102,8 +109,11 @@ describe("sf2FormCollection", function() {
     orig = container.find('.sf2fc-items').contents().length;
     $('.sf2fc-add').click();
 
-    expect(container.find('.sf2fc-items').children('*').last().find('div').data('test')).
-      toEqual(orig);
+    last = container.find('.sf2fc-items>*').last();
+
+    expect(
+      $('<div>').append(last.clone()).html()
+    ).toEqual("<div class=\"sf2fc-item\"><div data-other-test=\"5\"><span>5</span></div></div>");
   });
 
   it('should add a remove element at the end of each item', function () {
