@@ -75,6 +75,25 @@
       );
     });
    </script>
+
+  <h2>Sorting items</h2>
+  <div id="fc_sort" data-prototype="<span><span class='index'>0</span>__NAME__</span>">
+    <span><span class="index"></span>0</span>
+    <span><span class="index"></span>1</span>
+    <span><span class="index"></span>2</span>
+    <span><span class="index"></span>3</span>
+    <span><span class="index"></span>4</span>
+  </div>
+  <script>
+    $().ready(function(){
+      $('#fc_sort').sf2FormCollection(
+        {
+          "sortItem": "sort <strong> this </strong>",
+          "selectorIndex": "span.index"
+        }
+      );
+    });
+   </script>
 </body>
 
 </html>
