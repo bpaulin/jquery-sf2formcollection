@@ -18,23 +18,25 @@
             // If not, the link will be created containing "addItem" value
             "addItem": "Add an item",
             // If addItem is not a matching selector
-            // false(default): link will be added AFTER items
+            // false: link will be added AFTER items
             // true: link will be added BEFORE items
             "prependAddItem": false,
             // "tokenIndex" value will be replaced in prototype by an unique number
             "tokenIndex": "__NAME__",
-            // false(default): can't remove item
+            // false: can't remove item
             // string: the remove link will be created containing "removeItem" value
             "removeItem": false,
-            // false(default): link will be added AFTER item
+            // false: link will be added AFTER item
             // true: link will be added BEFORE item
             "prependRemoveItem": false,
-            // false(default): link will be added AFTER item
+            // false: link will be added AFTER item
             // string: the remove link will be created containing "sortItem" value
             "sortItem": false,
             // false: link will be added AFTER item
-            // true(default): link will be added BEFORE item
-            "prependSortItem": true
+            // true: link will be added BEFORE item
+            "prependSortItem": true,
+            // node matching "selectorIndex" inside an item will contain new index after sort
+            "selectorIndex": false
         };
 
     // The actual plugin constructor
@@ -76,6 +78,7 @@
 
                     containerRemoveElement.click(function() {
                         $(this).parent().remove();
+                        sortItem();
                     });
                 }
 
@@ -93,6 +96,15 @@
                         containerSortElement.appendTo(this);
                     }
                 }
+            }
+
+            function sortItem() {
+                $(that.element).find(".sf2fc-items").find(".sf2fc-item").each(
+                    function (index) {
+                        $(this).find(that.settings.selectorIndex).html(index);
+                    }
+                );
+
             }
 
             var that = this,
@@ -146,15 +158,24 @@
                 $(that.element).find(".sf2fc-items").append(item);
 
                 $(that.element).data("index", index+1);
+                sortItem();
             });
 
             /** SortElement */
             if (this.settings.sortItem) {
                 $(this.element).find(".sf2fc-items").sortable({
                     cursor: "move",
-                    handle: ".sf2fc-sort"
+                    handle: ".sf2fc-sort",
+                    update: function () {
+                        sortItem();
+                    }
                 });
-
+                sortItem();
+                $(this.element).find(".sf2fc-items").bind({
+                    update: function () {
+                        sortItem();
+                    }
+                });
             }
 
             /** return */
